@@ -2,6 +2,8 @@
 :set prompt ""
 :module Sound.Tidal.Context
 
+(cps, nudger, getNow) <- cpsUtils'
+
 import Sound.Tidal.Context
 import Sound.Tidal.MIDI.Stream
 import Sound.Tidal.MIDI.Context
@@ -14,8 +16,6 @@ devs <- midiDevices
 
 rytm <- midiStream devs "Focusrite USB MIDI" 1 rytmController
 harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
-
-(cps, nudger, getNow) <- cpsUtils'
 
 (c1,ct1) <- dirtSetters getNow
 (c2,ct2) <- dirtSetters getNow
@@ -39,7 +39,8 @@ harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
 
 
 let bps x = cps (x/2)
-let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,c1,c2,c3,c4,c5,c6,c7,c8,c9]
+let bpm x = bps (x/120)
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,c1,c2,c3,c4,c5,c6,c7,c8,c9,rytm,harmor]
 let solo = (>>) hush
 
 :set prompt "tidal> "
