@@ -1,2 +1,4 @@
 dist/
 scratch.tidal
+*.mp3
+*.wav

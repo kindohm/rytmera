@@ -1,14 +1,21 @@
--- test
-
 bps (130/120)
 
 let inverse 1 = 0
     inverse 0 = 1
+    gtfo p = (const $ midinote "~") $ p
 
 do
-    let pat = "{1 1 0 1 0 0 0 1 1 1 ~ ~ 1 ~ ~ 0}%16"
-    rytm $ stack [
-        velocity (pat) # midinote "[2,8]",
-        velocity (inverse <$> pat) # midinote "0" ]
+    let pat = "{ 0 ~ ~ ~ 0 0 0 0 0 0}%16"
+    rytm $ gtfo $ stack [
+            velocity pat # midinote "0",
+            velocity (inverse <$> pat) # midinote "2",
+            velocity (inverse <$> pat) # midinote "8",
+            velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3"]
+    harmor $ 
+        velocity (inverse <$> pat) # note "[0,[5 9]/4,14,[16 19]/3]"
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0 1 $ slow 14 tri1)
 
-hush
+        hush
