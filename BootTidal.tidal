@@ -2,6 +2,19 @@
 :set prompt ""
 :module Sound.Tidal.Context
 
+import Sound.Tidal.Context
+import Sound.Tidal.MIDI.Stream
+import Sound.Tidal.MIDI.Context
+
+displayOutputDevices >>= putStrLn
+
+import Rytmera.Rytm
+import Rytmera.Harmor
+devs <- midiDevices
+
+rytm <- midiStream devs "Focusrite USB MIDI" 1 rytmController
+harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
+
 (cps, nudger, getNow) <- cpsUtils'
 
 (c1,ct1) <- dirtSetters getNow
