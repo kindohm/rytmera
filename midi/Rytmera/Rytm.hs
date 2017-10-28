@@ -28,6 +28,10 @@ module Rytmera.Rytm where
                                 mCC perf6_p 40,
                                 mCC perf7_p 41,
                                 mCC perf8_p 42,
+                                mCC perf9_p 43,
+                                mCC perf10_p 44,
+                                mCC perf11_p 45,
+                                mCC perf12_p 46,
                                 mCC scene1_p 92
                               ],
                              latency = 0.1

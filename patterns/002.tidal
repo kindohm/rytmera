@@ -1,10 +1,11 @@
+cps 1
 
 let gtfo p = (const $ midinote "~") $ p
 
 do
     let mod p = foldEvery [5,6] (0.5 ~>) $
                 every 2 (rev) $ every 3 (0.5 ~>) $ p
-    harmor $ gtfo $  mod $
+    harmor $ gtfo $ mod $
         note "-7 -7/3" 
             # dur 0.9
             # velocity 0.75
@@ -12,7 +13,21 @@ do
             # x (scale 0 1 $ slow 17 tri1)
             # y (scale 0 1 $ slow 20 tri1)
     rytm $ stack [
-            (# nudge (scale (-0.05) 0.05 $ rand)) $ mod $ midinote "0 0/3",
+            -- ambient
+            gtfo $ whenmod 20 19 gtfo $ degradeBy 0.4 $ (11 <~) $ midinote "10*8" # unit "cycle" # velocity 1,
+            -- synth
+            gtfo $ slow 2 $ degradeBy 0.4 $ (10 <~) $ midinote "[9] ~ ~ ~" # dur 0.5 # velocity "0.7",
+            -- snare
+            gtfo $ sometimes (stut' 1 (4/3) (# midinote "1")) $ 
+                (# nudge (scale (-0.05) 0.05 $ rand)) $ mod $ midinote "-1 -1/3",
+            -- kicks
+            gtfo $ every 4 (sometimes (stut' 1 (2/3) (# midinote "2"))) $ 
+                (# nudge (scale (-0.05) 0.05 $ rand)) $ mod $ midinote "0 0/3",
+            -- clap
             (# nudge (scale 0 0.1 $ slow 1.33 $ rand)) $ mod $ slow 2 $ midinote "~ 3"]
+            # perf12 (scale 0 1 $ slow 1.1 $ rand)
 
             hush
+
+rytm $ midinote "10" # velocity "1" # dur "0.3"
+
