@@ -1,0 +1,23 @@
+-- test
+
+bps (180/120)
+
+do
+    let mod p = id $ p
+    let pat = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    harmor $ gtfo $  mod $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # ab (discretise (1/6.5) $ slow 6 $ choose [0,1])
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+    rytm $ mod $ stack [
+        velocity (pat) # midinote "0",
+        velocity (pat) # midinote "8",
+        velocity (inverse <$> pat) # midinote "3",
+        whenmod 10 5 (slow 2) $ midinote "9*16"]  # nudge "0"
+
+hush

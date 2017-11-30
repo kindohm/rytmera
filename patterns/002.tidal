@@ -5,7 +5,7 @@ let gtfo p = (const $ midinote "~") $ p
 do
     let mod p = foldEvery [5,6] (0.5 ~>) $
                 every 2 (rev) $ every 3 (0.5 ~>) $ p
-    harmor $ gtfo $ mod $
+    harmor $ mod $
         note "-7 -7/3" 
             # dur 0.9
             # velocity 0.75

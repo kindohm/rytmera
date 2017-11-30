@@ -2,6 +2,9 @@
 :set prompt ""
 :module Sound.Tidal.Context
 
+:load C:\Users\kindohm\code\rytmera\midi\rytm-harmor-minilogue\rytm.hs C:\Users\kindohm\code\rytmera\midi\rytm-harmor-minilogue\minilogue.hs C:\Users\kindohm\code\rytmera\midi\rytm-harmor-minilogue\harmor.hs
+
+
 (cps, nudger, getNow) <- cpsUtils'
 
 import Sound.Tidal.Context
@@ -10,22 +13,20 @@ import Sound.Tidal.MIDI.Context
 
 displayOutputDevices >>= putStrLn
 
+
 import Rytmera.Rytm
+import Rytmera.Minilogue
 import Rytmera.Harmor
+
 devs <- midiDevices
 
-rytm <- midiStream devs "Focusrite USB MIDI" 1 rytmController
-harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
+-- rytm <- midiStream devs "Elektron Analog Rytm" 1 rytmController
 
-(c1,ct1) <- dirtSetters getNow
-(c2,ct2) <- dirtSetters getNow
-(c3,ct3) <- dirtSetters getNow
-(c4,ct4) <- dirtSetters getNow
-(c5,ct5) <- dirtSetters getNow
-(c6,ct6) <- dirtSetters getNow
-(c7,ct7) <- dirtSetters getNow
-(c8,ct8) <- dirtSetters getNow
-(c9,ct9) <- dirtSetters getNow
+-- ml <- midiStream devs "Scarlett 18i8 USB" 15 minilogueController
+
+(rytm, rytmt) <- midiSetters devs "Scarlett 18i8 USB" 1 rytmController getNow
+(ml, mlt) <- midiSetters devs "Scarlett 18i8 USB" 15 minilogueController getNow
+(harmor, harmort) <- midiSetters devs "LoopBe Internal MIDI" 1 harmorController getNow
 
 (d1,t1) <- superDirtSetters getNow
 (d2,t2) <- superDirtSetters getNow
@@ -37,10 +38,9 @@ harmor <- midiStream devs "LoopBe Internal MIDI" 1 harmorController
 (d8,t8) <- superDirtSetters getNow
 (d9,t9) <- superDirtSetters getNow
 
-
 let bps x = cps (x/2)
 let bpm x = bps (x/120)
-let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,c1,c2,c3,c4,c5,c6,c7,c8,c9,rytm,harmor]
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,rytm,ml,harmor]
 let solo = (>>) hush
 
 :set prompt "tidal> "

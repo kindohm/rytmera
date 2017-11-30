@@ -1,0 +1,50 @@
+-- kit 3.
+-- ml 180
+
+cps 0.5
+
+hush
+let gtfo p = (const $ midinote "~") $ p
+
+do
+  let mod p = spaceOut ([1,1.2,0.6,0.8,1.5,2.5] ++ [0.5,0.7,1.1,1.75,2,1,0.4,0.5]) $ p
+  rytm $ stack [
+    mod $ velocity "[1 1 1 1 1 1 1 1 1 1 1 1 1 ~ ~ ~ ~]" # midinote "[36]",
+    mod $ midinote "[8 8 8 8 8 8 8 8 8 8 8 8 8 ~ ~ ~ 9]" # velocity "[1]",
+    mod $ midinote "~ 3" ] # velocity "1"    
+  ml $ mod $
+    (|+| note "[0,2,4,-3]") $ velocity "1"
+
+
+harmor $ (|+| note "[24 12]/16") $ 
+    spaceOut ([0.6,0.8..2] ++ [2,1.8..0.6]) $
+    velocity "[1 1 1 1 1 1 1 1 1 1 1 1 1]" 
+      # note "[0,2,4]"
+      # unit "cycle"
+
+      harmor silence
+
+
+
+do
+  let mod p = spaceOut ([1,1.2,0.6,0.8,1.5,2.5] ++ [0.5,0.7,1.1,1.75,2,1,0.4,0.5]) $ p
+  d1 $ stack [ mod $ gain "[1 1 1 1 1 1 1 1 1 1 1 1 1 ~ ~ ~ ~]" # s "kit" # cut "1" # speed "1",
+                mod $ s "~ kit:1" # cut "2" # speed "1",
+                mod $ n "[2 2 2 2 2 2 2 2 2 2 2 2 2 ~ ~ ~ 3]" # s "kit" # cut "4" ]
+  ml $ mod $
+    (|+| note "[0,2,4,-3]") $ velocity "1" # nudge "0.3"
+
+
+ml silence
+
+
+      hush
+
+d1 $ s "kit" # cut "1" 
+
+ml $ note "0" # nudge "0.3"
+
+
+harmor $ note "0"
+
+ml $ note "0"
