@@ -1,0 +1,257 @@
+-- test
+
+
+bps (180/120)
+
+let bd1 = "0"
+    ch1 = "8"
+    cp1 = "3"
+    oh1 = "9"
+    bd2 = "1"
+    ch2 = "10"
+    cp2 = "2"
+    oh2 = "11"
+    pat = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    harda p = (const $ "1") $ p
+    inv 0 = 1
+    inv 1 = 0
+
+let harmora = velocity (pat) # note "0" # unit "cycle"
+                # dur "0.5 0.5 0.35"
+                # x (discretise (1/6.5) $ scale 0.1 0.75 $ slow 2 rand)
+                # y (discretise (1/6.5) $ scale 0.1 1 $ slow 3 rand)
+                # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+                # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+                # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+                # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+                # ab (harda $ discretise (1/6.5) $ slow 6 $ choose [0,1])
+    harmorb = velocity (pat) # note "0" # unit "cycle"
+                # dur "0.5 0.5 0.35"
+                # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+                # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+                # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+                # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+                # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+                # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+                # ab (harda $ discretise (1/6.5) $ slow 6 $ choose [0,1])
+    rytma1 = stack [
+                velocity (inv <$> pat) # midinote bd2,
+                velocity (inv <$> pat) # midinote ch2,
+                velocity (pat) # midinote cp2,
+                gtfo $ whenmod 10 5 (slow 2) $ density 16 $ midinote oh2]
+    rytma2 = stack [
+                velocity (pat) # midinote bd2,
+                velocity (pat) # midinote ch2,
+                velocity (inv <$> pat) # midinote cp2,
+                gtfo $ whenmod 10 5 (slow 2) $ density 16 $ midinote oh2]
+    rytma3 = stack [
+                velocity (inv <$> pat) # midinote bd2,
+                velocity (inv <$> pat) # midinote ch2,
+                velocity (pat) # midinote cp2,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh2]
+    rytma4 = stack [
+                velocity (pat) # midinote bd2,
+                velocity (pat) # midinote ch2,
+                velocity (inv <$> pat) # midinote cp2,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh2]
+    rytmb1 = stack [
+                velocity (inv <$> pat) # midinote bd1,
+                velocity (inv <$> pat) # midinote ch1,
+                velocity (pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1]
+    rytmb2 = stack [
+                velocity (pat) # midinote bd1,
+                velocity (pat) # midinote ch1,
+                velocity (inv <$> pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1]
+    rytmb3 = stack [
+                velocity (pat) # midinote bd1,
+                velocity (pat) # midinote ch1,
+                velocity (pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1]
+                          
+hush                
+
+do
+    harmor $ harmora
+
+do
+    harmor $ harmora
+    rytm $ rytma1
+
+do
+    harmor $ harmora
+    rytm $ rytma2
+    
+do
+    harmor $ harmora
+    rytm silence
+    
+do  
+    harmor $ harmorb
+    rytm $ rytmb1
+
+do 
+    harmor $ harmorb
+    rytm $ rytmb2
+
+do
+    harmor silence
+    rytm $ rytma2
+
+do
+    harmor $ harmora
+    rytm $ rytma3
+
+do
+    harmor $ harmora
+    rytm $ rytma4
+    
+do
+    harmor $ harmora
+    rytm silence
+    
+do  
+    harmor $ harmorb
+    rytm $ rytmb1
+
+do 
+    harmor $ harmorb
+    rytm $ rytmb2
+
+do 
+    harmor $ harmorb
+    rytm $ rytmb3
+        
+do
+    harmor silence
+    rytm $ rytmb1
+
+hush
+
+
+
+do
+    harmor $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+        # ab (harda $ discretise (1/6.5) $ slow 6 $ choose [0,1])
+
+
+
+do
+    harmor $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+        # ab (harda $ discretise (1/6.5) $ slow 6 $ choose [0,1])
+    rytm $ gtfo $ stack [
+        velocity (inv <$> pat) # midinote bd2,
+        velocity (inv <$> pat) # midinote ch2,
+        velocity (pat) # midinote cp2,
+        whenmod 10 5 (slow 2) $ density 16 $ midinote oh2]  # nudge "0"
+        
+        
+
+do
+    harmor $ gtfo $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+        # ab (discretise (1/6.5) $ slow 6 $ choose [0,1])
+    rytm $ stack [
+        velocity (inv <$> pat) # midinote bd1,
+        velocity (inv <$> pat) # midinote ch1,
+        velocity (pat) # midinote cp1,
+        whenmod 10 5 (slow 2) $ density 16 $ midinote oh1]  # nudge "0"
+
+
+hush
+
+
+
+
+
+
+do
+    let mod p = id $ p
+    let pat = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    harmor $ mod $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # ab (discretise (1/6.5) $ slow 6 $ choose [0,1])
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+    rytm $ mod $ stack [
+        velocity (pat) # midinote "0",
+        velocity (pat) # midinote "8",
+        velocity (inverse <$> pat) # midinote "3",
+        whenmod 10 5 (slow 2) $ midinote "9*16"]  # nudge "0"
+        
+
+
+
+
+do
+    let mod p = id $ p
+    let pat = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    harmor $ mod $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/6.5) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/6.5) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/6.5) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/6.5) $ scale 0 1 $ slow 5 rand)
+        # ab 1
+        # tremdepth (discretise (1/6.5) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/6.5) $ scale 0 1 $ slow 8 rand)
+    rytm $ mod $ stack [
+        velocity (pat) # midinote "[1 0]/26",
+        velocity (pat) # midinote "[10 8]/26",
+        velocity (inverse <$> pat) # midinote "[2 3]/26",
+        whenmod 12 8 (density 2) $ velocity "1*8" # midinote "[11 9]/26"]  # nudge "0"
+
+
+cps 0.46
+        
+do
+    let pat = "[1 0 1 1 0 1 0 1 1 1 0 ~ ~]"
+    let pat5 = cat [pat, pat, pat, pat, pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat]
+    let pat6 = cat [pat, pat, pat, pat, pat, pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat]
+    let pat7 = cat [pat, pat, pat, pat, pat, pat, pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat]
+    let pat8 = cat [pat, pat, pat, pat, pat, pat, pat, pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat, inverse <$> pat]
+    rytm $ whenmod 32 28 (gtfo) $ stack [
+        velocity (pat8) # midinote "[1 0]/16",
+        velocity (pat7) # midinote "[10 8]/16",
+        velocity (pat6) # midinote "[2 3]/16",
+        whenmod 12 8 (density 2) $ velocity "1*13" # midinote "[11 9]/16"]
+    harmor $ velocity (pat) # note "0" # unit "cycle"
+        # dur "0.5 0.5 0.35"
+        # x (discretise (1/4) $ scale 0 0.75 $ slow 2 rand)
+        # y (discretise (1/4) $ scale 0 1 $ slow 3 rand)
+        # z (discretise (1/4) $ scale 0 0.75 $ slow 4 rand)
+        # prism (discretise (1/4) $ scale 0 1 $ slow 5 rand)
+        # ab (whenmod 16 8 (const $ "1") $ slow 6 $ choose[0,1])
+        # tremdepth (discretise (1/4) $ scale 0 1 $ slow 7 rand)
+        # tremspeed (discretise (1/4) $ scale 0 1 $ slow 8 rand)
+    
+
+                hush
+
+
+                d1 $ gain (discretise (1/4) $ randcat ["1 1 0 1", "0 1 0 1", "1 1 1 1", "0 0 1 1"]) # s "bd"
