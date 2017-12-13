@@ -10,6 +10,10 @@ module Rytmera.Harmor where
     (ab, ab_p) = pF "ab" (Just 0)
     (tremdepth, tremdepth_p) = pF "tremdepth" (Just 0)
     (tremspeed, tremspeed_p) = pF "tremspeed" (Just 0)
+    (imgspeed, imgspeed_p) = pF "imgspeed" (Just 0.5)
+    (imgtime, imgtime_p) = pF "imgtime" (Just 0)
+    (imgfreqscale, imgfreqscale_p) = pF "imgfreqscale" (Just 0)
+    (imgfreqform, imgfreqform_p) = pF "imgfreqscale" (Just 0)
     
     harmorController :: ControllerShape
     harmorController = ControllerShape { controls = [

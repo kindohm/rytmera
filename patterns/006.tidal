@@ -1,0 +1,64 @@
+bps (145/120)
+
+do
+    let pat1 = "{1 0 0 1 0 1 0 0}%16"
+    let patc = "{1 0 0 0 0 0 0 0}%16"
+    harmor $ (|+| note "[12 24]/16") $ velocity pat1 
+        # note "[0,2,4]"
+        # ab "1"
+        # x (discretise (1/8) $ scale 0 1 $ slow 2.482 rand)
+        # y (discretise (1/8) $ scale 0 1 $ slow 3.23 rand)
+        # z (discretise (1/8) $ scale 0 1 $ slow 4.34 rand)
+    rytm $ stack [ 
+        velocity patc # midinote "3",
+        velocity pat1 # midinote "0"]
+
+        hush
+
+do
+    let pat1 = "{1 0 0 1 0 1 0 0}%16"
+    let pat2 = "{1 0 0 1 0 1 0 1 0 0}%16"
+    let patc = "{1 0 0 0 0 0 0 0 0 0}%16"
+    harmor $ (|+| note "[12 24]/20") $ velocity pat2 
+        # note "[0,2,4]"
+        # ab "1"
+        # x (discretise (1/10) $ scale 0 1 $ slow 2.482 rand)
+        # y (discretise (1/10) $ scale 0 1 $ slow 3.23 rand)
+        # z (discretise (1/10) $ scale 0 1 $ slow 4.34 rand)
+    rytm $ stack [ 
+        velocity patc # midinote "3",
+        velocity pat2 # midinote "0"]
+
+do
+    let pat1 = "{1 0 0 1 0 1 0 1 0 0}%16"
+    let pat2 = "{1 0 0 1 0 1 0 1 0 1 0 0}%16"
+    let patc = "{1 0 0 0 0 0 0 0 0 0 0 0}%16"
+    harmor $ (|+| note "[12 24]/24") $ velocity pat2 
+        # note "[0,2,4]"
+        # ab "1"
+        # x (discretise (1/12) $ scale 0 1 $ slow 2.482 rand)
+        # y (discretise (1/12) $ scale 0 1 $ slow 3.23 rand)
+        # z (discretise (1/12) $ scale 0 1 $ slow 4.34 rand)
+    rytm $ stack [ 
+        gtfo $ whenmod 36 18 (const $ midinote "~") $ midinote "{~ 5 ~}%16",
+        velocity patc # midinote "3",
+        velocity pat2 # midinote "[0 1 2]/36"]        
+
+do
+    let pat1 = "{1 0 0 1 0 1 0 1 0 1 0 0}%16"
+    let pat2 = "{1 0 0 1 0 1 0 1 0 1 0 1 0 0}%16"
+    let patc = "{1 0 0 0 0 0 0 0 0 0 0 0 0 0}%16"
+    harmor $ (|+| note "[12 24]/28") $ velocity pat2 
+        # note "[0,2,4]"
+        # ab "1"
+        # x (discretise (1/14) $ scale 0 1 $ slow 2.482 rand)
+        # y (discretise (1/14) $ scale 0 1 $ slow 3.23 rand)
+        # z (discretise (1/14) $ scale 0 1 $ slow 4.34 rand)
+    rytm $ stack [ 
+        whenmod 28 14 (gtfo) $ midinote "{~ 5 ~}%16",
+        whenmod 21 14 (gtfo) $ midinote "{8 8 9}%16",
+        velocity patc # midinote "3",
+        velocity pat2 # midinote "[0 1 2]/42"]        
+                
+
+        hush

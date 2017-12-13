@@ -1,0 +1,31 @@
+bps (130/120)
+
+harmor $ 
+    (# x (scale 0.25 0.75 $ slow 20 tri)) $
+    (# y ( scale 0.25 0.75 $ slow 21 tri)) $
+    (# z (scale 0.25 0.75 $ slow 22 tri)) $
+    (# tremspeed (scale 0 1 $ slow 23 tri)) $
+    (# tremdepth (scale 0 0.5 $ slow 24 tri)) $
+    (# prism (scale 0.4 0.6 $ slow 25 tri)) $
+    whenmod 10 5 (stut' 1 (0.125*3) (|+| note "12")) $
+    slow 2 $ 
+    (|=| note "[0,2,4,14]") $
+    note "0(3,17)" # velocity (scale 1 0.5 $ saw)
+
+rytm $ stack [
+        whenmod 4 2 (degrade) $
+        shift $
+        rarely (stut' 1 (0.0625*5) (|*| velocity "0.9")) $ 
+        shift $
+        (|=| midinote "36") $
+        midinote "[0 ~ ~ 0] ~ ~ ~",
+        often (0.0625 <~) $ shift $ midinote "~ 3",
+        whenmod 12 6 (0.0625 ~>) $ whenmod 9 4 (0.0625 ~>) $ 
+            whenmod 12 6 (density 2) $ midinote "8*2",
+        midinote "~ ~ ~ 9/4",
+        every 7 (const $ midinote "10*32" # velocity (scale 0 0.5 $ saw)) $ 
+            degrade $ shift' 100 $ midinote "10*16" # velocity (scale 0.2 0.5 $ slow 81 rand)] 
+            # perf1 (slow 13.33 $ choose [0.1,1])
+            # perf12 (scale 0 0.3 $ slow 132.33 $ rand)
+            
+hush

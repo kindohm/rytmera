@@ -1,0 +1,21 @@
+bps (165/120)
+
+do
+    harmor $ 
+        (|+| note (discretise (1/8) $ slow 10 $ choose [-5,-4..5])) $
+        (# x (discretise (1/8) $ scale 0.01 0.5 $ slow 388 rand)) $
+        (# y (discretise (1/8) $ scale 0.55 0.8 $ slow 3 rand)) $
+        (# z (discretise (1/8) $ scale 0.1 0.9 $ slow 4 rand)) $
+        (# prism (discretise (1/8) $ scale 0 1 $ slow 5 rand)) $
+        (# ab (discretise (1/8) $ scale 0 1 $ slow 6 rand)) $
+        spreadChoose (_fast) [2,3..40] $ 
+        degradeBy 0.9 $ note "[0,-1]" 
+        # unit "cycle"
+        # dur "0.2"
+        # velocity 1
+    rytm $ stack [spreadChoose (_fast) [2,3..40] $ 
+                degradeBy 0.9 $ midinote "0" ,
+                slow 2 $ midinote "~ 3" ] # velocity 1
+
+
+    hush

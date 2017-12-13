@@ -1,0 +1,82 @@
+bps (140/120)
+
+
+let rytmpat = stack [ 
+                whenmod 12 8 (0.25 <~) $ whenmod 8 4 (0.25 <~) $ 
+                    density 2 $ midinote "0 [~ 0] ~ ~",
+                midinote "~ [~ [~ 2/3]] ~ [~ [3/2 2/4]]",
+                sometimes (0.0625 <~) $ shift' 8 $ sometimes (0.0625 ~>) $ shift' 8 $ midinote "~ [~ 1] ~ ~",
+                rarely (stut' 1 (0.0625) (|*| velocity "0.9")) $ 
+                    midinote "8*4",
+                sometimes (0.0625 ~>) $ 
+                    shift $ often (gtfo) $ midinote "[~ 10]*4",
+                ((0.0625*3) ~>) $ (0.375 <~) $ midinote "4/5"]
+    harmor1pat = density 2 $ (|+| note (discretise (1/8) $ slow 188 $ choose[-12,0])) $ 
+                    (|+| note "6") $ (|=| note "[0,10,14]") $ note "0 [~ 0] ~ ~" # dur "0.2"
+                    # x (discretise (1/8) $ scale 0.25 0.65 $ slow 2 rand)
+                    # y (discretise (1/8) $ scale 0 0.5 $ slow 3 rand)
+                    # z (discretise (1/8) $ slow 4 rand)
+                    # tremdepth (discretise (1/8) $ slow 5 rand)
+                    # tremspeed (discretise (1/8) $ slow 6 rand)
+                    # velocity "1"
+    harmor2pat = (# x (discretise (1/8) $ scale 0 1 $ slow 10 rand)) $
+                    (# y (discretise (1/8) $ scale 0.1 0.9 $ slow 11 rand)) $
+                    (# z (discretise (1/8) $ scale 0 1 $ slow 12 rand)) $
+                    slow (discretise (1/8) $ slow 13 $ choose [3,4,5,6]) $ 
+                    density 8 $ (|=| note "[0,-1]") $ note "0" # velocity 1
+
+
+do
+    let rytmmod p = whenmod 32 24 (gtfo) $ whenmod 40 32 (slow 2) $ p
+    let breakm p = every 8 (gtfo) $ p
+    let breakd p = every 8 (const $ sound "harmen" # speed "1" # unit "c") $ p
+    rytm $ rytmpat
+    harmor $ harmor1pat
+    harmor2 $ harmor2pat
+
+
+
+cps 0.5
+
+do
+    let mod p = spaceOut ([1,1.1,1.5,0.9,0.8,0.5,0.4,2,1.75,1.5]) $ p
+    let pat1 = "[0 1 8 3 ~ 2 8 2 ~ ~ ~ ~ ~]"
+    let pat2 = "[0 ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~]"
+    let pat3 = "[~ ~ ~ ~ 0 ~ ~ ~ 0 ~ ~ ~ ~]"
+    rytm $ mod $ midinote pat1 # velocity 1
+    harmor2 $ every 3 (stut' 1 (0.5) ((|*| velocity "0.7") . (|+| note "[-12,-10,-8]"))) $ mod $ 
+        (# x (discretise (1/4) $ scale 0 1 $ slow 10 rand)) $
+        (# y (discretise (1/1) $ scale 0.1 0.9 $ slow 11 rand)) $
+        (# z (discretise (1/1) $ scale 0 1 $ slow 12 rand)) $
+        (|+| note (discretise (1/1) $ slow 13 $ choose [-1,0,1])) $
+        note pat2 # velocity "1"
+    harmor $ mod $ (|+| note "6") $ (|=| note "[0,10,14]") $ note pat3 # velocity "1"
+        # dur "0.5"
+        # x (discretise (1/1) $ scale 0.25 0.65 $ slow 2 rand)
+        # y (discretise (1/1) $ scale 0 0.5 $ slow 3 rand)
+        # z (discretise (1/1) $ slow 4 rand)
+        # tremdepth (discretise (1/1) $ slow 5 rand)
+        # tremspeed (discretise (1/1) $ slow 6 rand)
+
+
+do
+    harmor $ density 2 $ note "0 [~ 0] ~ ~" # velocity 1
+        # dur "0.5"
+        # x (discretise (1/1) $ scale 0.25 0.65 $ slow 2 rand)
+        # y (discretise (1/1) $ scale 0 0.5 $ slow 3 rand)
+        # z (discretise (1/1) $ slow 4 rand)
+        # tremdepth (discretise (1/1) $ slow 5 rand)
+        # tremspeed (discretise (1/1) $ slow 6 rand)
+    harmor2 $ move $
+        (# x (scale 0 1 $ slow 10 tri)) $
+        (# y (scale 0.1 0.9 $ slow 11 tri)) $
+        (# z (scale 0 1 $ slow 12 tri)) $
+        rep 7 $ 
+        note "{0 ~ ~ ~ ~ ~ ~}%2" 
+        # velocity 1
+    rytm $ move $ rep 7 $ 
+            midinote "{0 ~ ~ ~ ~ ~ ~}%2" 
+
+
+
+    hush

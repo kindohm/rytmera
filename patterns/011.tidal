@@ -1,0 +1,25 @@
+
+
+bps (140/120)
+
+do
+    let d p = discretise (1/8) $ p
+    let d2 p = discretise (1/10) $ p
+    harmor $ 
+        note "{~ ~ 0 ~ ~}%8"
+        # x (d2 $ scale 0 1 $ slow 3 rand)
+        # y (d2 $ scale 0 1 $ slow 4 rand)
+        # z (d2 $ scale 0 1 $ slow 5 rand)
+        # prism (d2 $ scale 0.4 0.6 $ slow 6 rand)
+        # tremdepth (d2 $ scale 0 1 $ slow 7 rand)
+        # tremspeed (d2 $ scale 0 1 $ slow 8 rand)
+    rytm $ 
+        (# perf1 (d2 $ scale 0 1 $ slow 9 rand)) $ 
+        (# perf2 (d2 $ scale 0 1 $ slow 10 rand)) $         
+        (# perf3 (d2 $ scale 0 0.25 $ slow 11 rand)) $         
+        (# perf5 (d2 $ scale 0 1 $ slow 12 rand)) $         
+        (# perf6 (d2 $ scale 0 1 $ slow 13 rand)) $      
+        stack [ 
+        rep 13 $ midinote "0/5"]
+
+hush

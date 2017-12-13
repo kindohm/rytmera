@@ -1,0 +1,22 @@
+
+do
+    let mod p = spaceOut [1,1.1,0.7,1.3,1.5,2,0.6,0.5,0.9,0.8,1.2,3] $ p
+    rytm $  
+        mod $ stack [
+        midinote "[0 0 0 0 0 0 0 0 ~]" 
+            # velocity (rev $ scale 0.05 0.5 $ saw)
+            # perf1 (discretise 1 $ slow 33 $ choose [0,0.75]),
+        midinote "[~ ~ ~ ~ ~ 8*3 9 [~ 3] ~]" ]
+    harmor $ mod $
+        (|+| note "12") $
+        (|+| note "-7") $
+        note "[0,5]" 
+        # unit "cycle"
+        # x (scale 0.2 0.8 $ slow 10 rand)
+        # y (scale 0.2 0.8 $ slow 11 rand)
+        # z (scale 0.2 0.8 $ slow 12 rand)
+        # prism (scale 0.4 0.6 $ slow 13 rand)
+        # tremdepth (scale 0 1 $ slow 14 rand)
+        # tremspeed (scale 0 1 $ slow 15 rand)
+        
+    hush
