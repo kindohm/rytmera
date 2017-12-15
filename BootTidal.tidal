@@ -24,7 +24,9 @@ devs <- midiDevices
 
 -- ml <- midiStream devs "Scarlett 18i8 USB" 15 minilogueController
 
-(rytm, rytmt) <- midiSetters devs "Elektron Analog Rytm" 1 rytmController getNow
+-- (rytm, rytmt) <- midiSetters devs "Elektron Analog Rytm" 1 rytmController getNow
+
+(rytm, rytmt) <- midiSetters devs "Scarlett 18i8 USB" 1 rytmController getNow
 
 -- (ml, mlt) <- midiSetters devs "Scarlett 18i8 USB" 15 minilogueController getNow
 -- (harmor, harmort) <- midiSetters devs "LoopBe Internal MIDI" 1 harmorController getNow
@@ -44,7 +46,7 @@ devs <- midiDevices
 
 let bps x = cps (x/2)
 let bpm x = bps (x/120)
-let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,rytm,harmor,harmor2]
+let hush = mapM_ ($ silence) [d1,d2,d3,d4,d5,d6,d7,d8,d9,harmor,harmor2]
 let solo = (>>) hush
 
 :set prompt "tidal> "

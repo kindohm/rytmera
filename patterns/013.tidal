@@ -1,0 +1,49 @@
+bps (210/120)
+
+do
+    let dis p = discretise (1/8) $ p
+    harmor $ gtfo $ (|+| note (dis $ slow 200 $ choose[-12,0])) $ 
+        (|+| note "[0,5]") $ whenmod 40 24 (|=| note "{0 2 4 5 7 9}%16") $ note "[0 2 4 5]*4"
+        # x (dis $ scale 0.3 0.7 $ slow 40 rand)
+        # y (dis $ scale 0.3 0.7 $ slow 43 rand)
+        # z (dis $ scale 0 0.8 $ slow 37 rand)
+        # prism (dis $ scale 0.4 0.6 $ slow 48 rand)
+        # harm (dis $ scale 0 1 $ slow 46 rand)
+        # reverbwet (dis $ scale 0.1 0.5 $ slow 100 rand)
+    rytm $ stack [
+        whenmod 40 32 (gtfo) $ midinote "0*8" 
+            # perf1 (dis $ scale 0 0.6 $ slow 38.3 rand),
+        whenmod 32 24 (gtfo) $ (0.0625 <~) $ midinote "1*8" 
+            # perf2 (dis $ scale 0 0.6 $ rand)]
+        
+harmor silence
+        
+hush        
+
+harmor $ note "0"
+
+
+do
+    let dis p = discretise (1/8) $ p
+    harmor $ (|+| note (dis $ slow 200 $ choose[-12,0])) $ 
+        (|+| note "[0,5]") $ whenmod 40 24 (|=| note "{0 2 4 5 7 9}%16") $ note "[0 2 4 5]*4"
+        # x (dis $ scale 0.3 0.7 $ slow 40 rand)
+        # y (dis $ scale 0.3 0.7 $ slow 43 rand)
+        # z (dis $ scale 0 0.8 $ slow 37 rand)
+        # prism (dis $ scale 0.4 0.6 $ slow 48 rand)
+        # harm (dis $ scale 0 1 $ slow 46 rand)
+        # reverbwet (dis $ scale 0.1 0.5 $ slow 100 rand)
+
+
+        hush
+
+        rytm silence
+
+do
+    let dis p = discretise (1/8) $ p
+    rytm $ stack [
+        whenmod 40 32 (gtfo) $ note "0*8" 
+            # perf1 (dis $ scale 0 0.6 $ slow 38.3 rand),
+        whenmod 32 24 (gtfo) $ (0.0625 <~) $ note "1*8" 
+            # perf2 (dis $ scale 0 0.6 $ rand)]
+        

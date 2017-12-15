@@ -14,6 +14,8 @@ module Rytmera.Harmor where
     (imgtime, imgtime_p) = pF "imgtime" (Just 0)
     (imgfreqscale, imgfreqscale_p) = pF "imgfreqscale" (Just 0)
     (imgfreqform, imgfreqform_p) = pF "imgfreqscale" (Just 0)
+    (harm, harm_p) = pF "harm" (Just 0)
+    (reverbwet, reverbwet_p) = pF "reverbwet" (Just 0)
     
     harmorController :: ControllerShape
     harmorController = ControllerShape { controls = [
@@ -23,7 +25,9 @@ module Rytmera.Harmor where
                                 mCC prism_p 103,
                                 mCC ab_p 104,
                                 mCC tremdepth_p 105,
-                                mCC tremspeed_p 106
+                                mCC tremspeed_p 106,
+                                mCC harm_p 107,
+                                mCC reverbwet_p 108
                               ],
                              latency = 0.1
                            }
