@@ -1,0 +1,52 @@
+
+
+bps (200/120)
+
+let dec = phaserwidth
+    wet = phaseroffset
+    dry = phaserspeed
+
+do
+    harmor $ 
+        fast (shift' 10 $ choose[1,2..16]) $
+        degradeBy 0.93 $ 
+        (|+| note (shift' 101 $ choose[0,-12,12])) $
+        shift $
+        stack [ 
+            sometimes (|+| note "-3") $ shift' 200 $ note "12"         
+            # phase (scale 0 1 $ shift' 101 rand)
+            # pitch (scale 0 0.8 $ shift' 102 rand)        
+            # reverbwet (scale 0.1 0.5 $ shift' 103 rand)
+            # reverbsize (scale 0.01 0.2 $ shift' 104 rand)
+            # reverbdry (scale 0.5 0.9 $ shift' 301 rand)
+            # x (scale 0 1 $ shift' 105 rand)
+            # y (scale 0 1 $ shift' 106 rand)
+            # z (scale 0 1 $ shift' 300 rand)
+            # tremdepth (scale 0 1 $ shift' 107 rand)
+            # tremspeed (scale 0 1 $ shift' 108 rand), 
+            (0.5 <~) $ note "108*2" ]
+        # dec (discretise (1/4) $ scale 0 0.2 $ shift' 109 rand)
+        # wet (discretise (1/4) $ scale 0 0.5 $ shift' 110 rand)
+        # dry (discretise (1/4) $ scale 0.2 1 $ shift' 111 rand)
+    rytm $ gtfo $ every 3 (rev) $ 
+        sometimesBy 0.25 (stut' 16 (0.125/2) (|*| velocity "0.6")) $
+        shift' 1118 $
+        randcat [midinote "0*8", midinote "1(3,8)",  
+            midinote "3*8" # velocity (scale 0.2 0.5 $ rev $ saw), midinote "0(3,8)", midinote "~", midinote "3", midinote "3(3,8)", midinote "[~ 4 ~ ~] 0*4?"] # velocity "0.5"
+    harmor2 $ gtfo $
+        fast (shift' 1820 $ choose[1,2..16]) $
+        degradeBy 0.93 $ 
+        (|+| note (shift' 1201 $ choose[0,1..12])) $
+        shift' 1112 $
+        note "[0,-1]"
+        # imgspeed (scale 0.3 0.7 $ shift' 2000 rand)
+        # imgtime (scale 0 1 $ shift' 2001 rand)
+        # imgfreqscale (scale 0.25 0.75 $ shift' 2002 rand)
+        # imgfreqform (scale 0.25 0.75 $ shift' 2003 rand)
+        # x (scale 0 1 $ shift' 2004 rand)
+        # y (scale 0 1 $ shift' 2005 rand)
+        # reverbwet (scale 0.1 1 $ shift' 3103 rand)
+        # reverbsize (scale 0.01 0.1 $ shift' 3104 rand)
+        # reverbdry (scale 0.25 1 $ shift' 3301 rand)
+
+        hush

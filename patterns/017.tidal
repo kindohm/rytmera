@@ -1,0 +1,20 @@
+
+
+bps (100/120)
+
+do
+    harmor $ density 2 $
+        (# x (scale 0 1 $ slow 52 tri)) $
+        (# y (scale 0 1 $ slow 50 tri)) $
+        (# z (scale 0 1 $ slow 48 tri)) $
+        (# phase (scale 0 1 $ slow 46 tri)) $
+        (# pitch (scale 0 1 $ slow 49 tri)) $
+        note "{0 -12 -12 0 -12 -12 -12 -5 ~ ~ ~ ~ 12}%8"
+        # unit "cycle"
+    rytm $ density 2 $ stack [
+        (0.5 <~) $ midinote "{8 8 8 8 8 8 8 ~ ~ ~ ~ 9/2 ~}%8",
+        midinote "{3 ~ ~ 3 ~ ~ ~ ~ ~ ~ ~ ~ ~}%8",
+        midinote "{~ 0 0 ~ 0 0 0 ~ ~ ~ ~ ~ ~}%8",
+        gtfo $ midinote "~ 1"]
+
+    hush

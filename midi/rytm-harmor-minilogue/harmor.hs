@@ -15,7 +15,7 @@ module Rytmera.Harmor where
     (imgfreqscale, imgfreqscale_p) = pF "imgfreqscale" (Just 0)
     (imgfreqform, imgfreqform_p) = pF "imgfreqform" (Just 0)
     (harm, harm_p) = pF "harm" (Just 0)
-    (reverbwet, reverbwet_p) = pF "reverbwet" (Just 0)
+    (reverbwet, reverbwet_p) = pF "reverbwet" (Just 0.5)
 
     (f1, f1_p) = pF "f1" (Just 0.5)
     (f1width, f1width_p) = pF "f1width" (Just 0.5)
@@ -40,8 +40,13 @@ module Rytmera.Harmor where
     (phaserspeed, phaserspeed_p) = pF "phaserspeed" (Just 0.666)
     (phaserkbt, phaserkbt_p) = pF "phaserkbt" (Just 0.5)
     (phasermode, phasermode_p) = pF "phasermode" (Just 0)
+
+    (phase, phase_p) = pF "phase" (Just 0.75)
+    (pitch, pitch_p) = pF "pitch" (Just 0.25)
     
     (pluck, pluck_p) = pF "pluck" (Just 1)
+    (reverbsize, reverbsize_p) = pF "reverbsize" (Just 0.25)
+    (reverbdry, reverbdry_p) = pF "reverbdry" (Just 0.8)
     
     harmorController :: ControllerShape
     harmorController = ControllerShape { controls = [
@@ -81,11 +86,16 @@ module Rytmera.Harmor where
                                 -- mCC phaser_p 99,
                                 mCC phaserwidth_p 98,
                                 mCC phaseroffset_p 92,
-                                mCC phaserspeed_p 91
+                                mCC phaserspeed_p 91,
                                 -- mCC phaserkbt_p 90,
                                 -- mCC phasermode_p 89,
 
                                 -- mCC pluck_p 93
+                                mCC phase_p 87,
+                                mCC pitch_p 86,
+                                mCC reverbwet_p 85,
+                                mCC reverbsize_p 84,
+                                mCC reverbdry_p 83
                                 ],
                              latency = 0.1
                            }

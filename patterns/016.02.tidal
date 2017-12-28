@@ -1,0 +1,44 @@
+-- hi
+
+bps (320/120)
+
+do
+    let dis p = discretise (1/12) $ p
+    let mod p = id $ p
+    harmor $ 
+        mod $ (|+| note "[0 2 -3 5]/32") $
+        note "{[0 ~ ~ 0] [~] ~}%2"
+        # dur "0.1"
+        # phaserwidth (dis $ scale 0 0.2 $ shift' 4 $ rand)
+        # phaseroffset (dis $ scale 0 0.7 $ shift' 5 $ rand)
+        # x (dis $ scale 0.3 0.7 $ shift' 6 $ rand)
+        # y (dis $ scale 0.3 0.7 $ shift' 7 rand)
+    rytm $ mod $
+        (# scene (dis $ shift' 101 $ choose [0,0.01,0.02])) $ 
+        stack [ midinote "{[0 ~ ~ 0] [~ 0 ~ ~] ~}%2",
+        whenmod 48 32 (const $ midinote "8*6") $ density 2 $ midinote "8*2 8",
+        whenmod 10 5 (0.25 <~) $ (|=| nudge (scale 0 0.05 $ shift' 102 $ rand)) $  slow 2 $ midinote "~ 3"]
+
+hush
+
+
+do
+    let dis p = discretise (1/4.5) $ p
+    let mod p = rep' 15 $ p
+    let pat = "{0/7 ~ ~ ~ ~ ~ ~ ~ ~}%16" 
+    harmor $ whenmod 16 12 (move) $ mod $ note pat
+        # dur "0.3"
+        # f1 (dis $ scale 0.2 0.8 $ shift' 2 $ rand)
+        # f2 (dis $ scale 0.2 0.8 $ shift' 3 $ rand)
+        # phaserwidth (dis $ scale 0 1 $ shift' 4 $ rand)
+        # phaseroffset (dis $ scale 0 1 $ shift' 5 $ rand)
+        # x (dis $ scale 0 1 $ shift' 6 $ rand)
+        # y (dis $ scale 0 1 $ shift' 7 rand)
+    rytm $ whenmod 16 12 (move) $ 
+        (# scene (dis $ shift' 101 $ choose [0,0.01,0.02])) $ stack [ 
+        mod $ midinote pat # velocity "0.5",
+        whenmod 10 5 (0.0625 <~) $ midinote "~ 3",
+        whenmod 12 6 (0.125 ~>) $ midinote "8*4"]
+        
+    
+    hush

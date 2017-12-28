@@ -1,0 +1,38 @@
+-- hi
+
+bps (260/120)
+
+do
+    let dis p = discretise (1/7) $ p
+    let pat = "{0 1 1 0 1 0 1}%8"
+    harmor $ (|*| velocity "0.5") $ 
+        velocity (inv <$> pat) # note "0"
+        # dur "{0.35 ~ ~ 0.25 ~ 0.25 ~}%8"
+        # x (dis $ scale 0 1 $ shift' 2 rand)
+        # y (dis $ scale 0 1 $ shift' 3 rand)
+        # z (dis $ scale 0 1 $ shift' 4 rand)
+        # phaserwidth (dis $ scale 0 0.2 $ shift' 5 rand)
+        # phaseroffset (dis $ scale 0 1 $ shift' 6 rand)
+        # f1 (dis $ scale 0 1 $ shift' 7 rand)
+        # f2 (dis $ scale 0 1 $ shift' 8 rand)
+    rytm $ velocity pat # midinote "0"
+
+
+do
+    let dis p = discretise (1/7) $ p
+    let pat = "{0 1 1 0 1 0 1}%8"
+    harmor $ (|*| velocity "0.5") $
+        rarely (stut' 1 (0.125) (|+| note (shift' 202 $ choose [12,24]))) $ 
+        velocity (inv <$> pat) # note "[0]"
+        # x (dis $ scale 0.3 0.7 $ slow 21 tri)
+        # y (dis $ scale 0.2 0.7 $ slow 22 tri)
+        # z (dis $ scale 0.5 1 $ slow 23 tri)
+        # f1 (dis $ scale 0.1 0.6 $ slow 23.5 tri)
+        # f2 (dis $ scale 0.2 0.7 $ slow 21.5 tri)
+    rytm $ 
+        stack [
+                velocity pat # midinote "0",
+                midinote "{~ ~ 3/2 ~ ~ ~ ~}%8" ]
+        # scene "0.01"
+
+        hush

@@ -6,7 +6,7 @@ do
     let dis p = discretise (1/6) $ p
     let mod p = whenmod 10 5 (move) $ p
     let pat = "{0 1 1 1 0 [~ 0] 1 0/2 1 1 1 1}%8"
-    harmor $ gtfo $ mod $ 
+    harmor $ mod $ 
         sometimes (off (0.125*3) (|+| note (shift' 101 $ choose [12,24,-12]))) $
         (|*| velocity "0.5") $ velocity (inv <$> pat) # note "[0]" 
         # x (dis $ shift' 1 $ scale 0 0.25 $ rand)
@@ -15,7 +15,7 @@ do
         # f2 (dis $ shift' 5 $ rand)
         # phaserwidth (dis  $ shift' 6 $ scale 0 0.25 $ rand)
         # phaseroffset (dis  $ shift' 7 $ rand)
-    rytm $ (|=| scene "0.02") $
+    rytm $ 
         (|=| scene (dis $ shift' 404 $ choose[0,0,0.01,0.02])) $ mod $ stack [
         degradeBy (dis $ shift' 303 $ choose [1,1,1,0]) $ (|*| velocity "0.5") $ 
             velocity (pat) # midinote "[5]" # nudge (scale 0 0.05 $ shift' 17 rand),        
