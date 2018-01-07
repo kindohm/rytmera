@@ -1,28 +1,166 @@
 bps (130/120)
 
+hush
+
 let inverse 1 = 0
     inverse 0 = 1
     gtfo p = (const $ midinote "~") $ p
+    notepat = "[0,[5 9 11]/4,14,[16 19 21]/5]"
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ gtfo $ stack [
+            velocity pat # midinote "0",
+            velocity (inverse <$> pat) # midinote "[2,8]",
+            gtfo $ velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)
+
 
 do
     let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
     rytm $ stack [
             velocity pat # midinote "0",
-            velocity (inverse <$> pat) # midinote "2",
-            velocity (inverse <$> pat) # midinote "8",
-            velocity (pat) # midinote "3"]
+            velocity (inverse <$> pat) # midinote "[2,8]",
+            gtfo $ velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3",
+            gtfo $ midinote "3*2"]
     harmor $ 
-        velocity (inverse <$> pat) # note "[0,[5 9]/4,14,[16 19]/3]"
+        velocity (inverse <$> pat) # note notepat
             # x (scale 0 1 $ slow 20 tri1)
             # y (scale 0 1 $ slow 17 tri1)
-            # z (scale 0 1 $ slow 14 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                        
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity pat # midinote "0",
+            velocity (inverse <$> pat) # midinote "[2,8]",
+            gtfo $ velocity (pat) # midinote "9",
+            gtfo $ velocity (pat) # midinote "3",
+            midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)
+            
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity pat # midinote "0",
+            velocity (inverse <$> pat) # midinote "[2,8]",
+            gtfo $ velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (inv <$> pat) # midinote "0",
+            velocity (pat) # midinote "[8]",
+            gtfo $ velocity (inv <$> pat) # midinote "9",
+            velocity (inv <$> pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)
+                        
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ gtfo $ stack [
+            velocity (inv <$> pat) # midinote "0",
+            velocity (pat) # midinote "[8]",
+            gtfo $ velocity (inv <$> pat) # midinote "9",
+            velocity (inv <$> pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)            
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (inv <$> pat) # midinote "0",
+            velocity (pat) # midinote "[8]",
+            velocity (inv <$> pat) # midinote "9",
+            gtfo $ velocity (pat) # midinote "3",
+            midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                        
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (inv <$> pat) # midinote "0",
+            velocity (pat) # midinote "[8]",
+            velocity (inv <$> pat) # midinote "9",
+            velocity (inv <$> pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                                    
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (pat) # midinote "0",
+            velocity (inv <$> pat) # midinote "[8,2]",
+            velocity (pat) # midinote "9",
+            velocity (inv <$> pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                                                
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (pat) # midinote "0",
+            velocity (inv <$> pat) # midinote "[8,2]",
+            velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                                                            
+
+do
+    let pat = "{1 1 0 1 ~ 0 0 1 ~ 0 1 ~ 0 1 0}%16"
+    rytm $ stack [
+            velocity (pat) # midinote "0",
+            velocity (inv <$> pat) # midinote "[8,2]",
+            velocity (pat) # midinote "9",
+            velocity (pat) # midinote "3",
+            gtfo $ midinote "3*2"]
+    harmor $ 
+        velocity (inverse <$> pat) # note notepat
+            # x (scale 0 1 $ slow 20 tri1)
+            # y (scale 0 1 $ slow 17 tri1)
+            # z (scale 0.1 1 $ slow 14 tri1)                                                                        
 
 
-rytm $ swingBy (1/4) 8 $ midinote "[0 1 3 8]*4"
-
-        hush
-
-
-    rytm $ midinote "0*2"
-
-    hush
+            hush

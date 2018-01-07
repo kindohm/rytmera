@@ -1,0 +1,20 @@
+
+
+rytm $ density 2 $ spaceOut ([0.1,0.15..1] ++ [1,0.95..0.1] ) $ midinote "3"
+
+d1 $ density 2 $ spaceOut ( (map (1/) [1,1.25..8] ) ++ (map (1/) [8,7.75..1])) $ s "cplines" # gain "1.2"
+
+
+d1 $ sound "cplines*6" 
+    # nudge (scale 0 2 $ slow 9 $ sine)
+    # pan (scale 0 1 $ slow 11 sine)
+    
+d2 $ slow 1.1 $ sound "cplines*9" 
+    # speed (scale 0.9 1.1 $ slow 8 sine)
+    # nudge (scale 0 2 $ slow 9 $ sine)
+    # pan (scale 0 1 $ slow 11 sine)
+    
+
+
+
+hush

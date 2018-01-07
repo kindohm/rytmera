@@ -1,0 +1,38 @@
+
+
+bps (160/120)
+
+do
+    let dis p = discretise (1/4) $ p
+    let drumpat = "[1 0 0 1] [1 0 0 1 0 0 1 0] [1 0 0 1 0 0 1 0] [1 0 0 1 0 0 1 0]"
+    harmor $ 
+        gtfo $ 
+        whenmod 32 24 (gtfo) $
+        slow 2 $ note "[-24 -24/8 -24/8 0] 0(3,8) 0(3,8) 0(3,8)" # dur "[0.3 0.1 0.1 0.1] 0.1 0.1 0.1"
+        # x (dis $ scale 0 1 $ shift' 2 rand)
+        # y (dis $ scale 0 1 $ shift' 3 rand)
+        # z (dis $ scale 0 1 $ shift' 4 rand)
+        # f1width (dis $ scale 0 0.7 $ shift' 5 rand)
+        # f2width (dis $ scale 0 0.7 $ shift' 6 rand)
+    rytm $ 
+        -- gtfo $
+        slow 2 $ every 16 (within (0,0.25) (const $ midinote "~")) $ stack [ 
+        whenmod 40 32 (gtfo) $ velocity (whenmod 16 8 (inv <$>) $ drumpat) # midinote "0",
+        whenmod 30 22 (gtfo) $ velocity (whenmod 16 8 (inv <$>) $ inv <$> drumpat) # midinote "3",
+        whenmod 36 28 (gtfo) $ whenmod 24 16 (density 2) $ whenmod 16 8 (density 2) $ midinote "8*8" # velocity "0.5" ]
+    harmor2 $ gtfo $ 
+        whenmod 24 16 (gtfo) $ 
+        (|+| note "[-12 0]/16") $ (|+| note "-6") $ note "{0 2 3 5 7 8}%16"
+        # z (scale 0.2 1 $ slow 20 tri)
+        # dur "0.07"
+    
+hush
+
+
+        -- backup
+        harmor2 $ 
+        whenmod 24 16 (gtfo) $ 
+        (|+| note "-12") $ (|+| note "-6") $ density 4 $ every 3 (|+| note "12") $ every 2 (|+| note "-12") $ note "[0 2 3 5]"
+        # z (slow 8 $ dis $ scale 0.2 1 $ shift' 7 rand)
+        # dur "0.07"
+

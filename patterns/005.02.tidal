@@ -1,0 +1,25 @@
+bps (140/120)
+
+do
+    let pat = "{0 ~ ~ ~ 0/2 ~ ~}%2"
+    let mod p = whenmod 21 17 (iter "4 8 16") $ 
+                whenmod 8 4 (foldEvery [3,4] (0.25 ~>)) $
+                every 6 (stut' 3 (0.0625*3) (|*| velocity "0.5")) $ p
+    harmor $ mod $
+        (|+| note (slow 11 $ choose [0,12,24])) $ 
+        (# x (scale 0.3 0.7 $ slow 15 tri)) $
+        (# y (scale 0.3 0.7 $ slow 16 tri)) $
+        (# z (scale 0 1 $ slow 17 tri)) $
+        (# prism (scale 0.4 0.6 $ slow 14 tri)   ) $
+        (# tremdepth (scale 0 0.5 $ slow 18 tri)) $
+        (# tremspeed (scale 0 1 $ slow 19 tri)) $
+        rep 6 $
+        note pat # note "[0,2,4]" # velocity "1"
+        # ab "1"
+    rytm $ gtfo $ mod $ stack [ 
+        ((0.0625*3) ~>) $ (# midinote "8") $ rep 6 $ midinote pat,
+        rep 6 $ midinote pat,
+        density 2 $ midinote "1 [~ 1] ~ ~",
+        rarely (stut' 7 (0.0625*3) (|*| velocity "0.5")) $ midinote "~ 2" # velocity "0.75"]
+
+hush

@@ -7,10 +7,10 @@ let dec = phaserwidth
     dry = phaserspeed
 
 do
-    let mod p = foldEvery [3,4] (0.75 ~>) $ p
+    let mod p = id $ p
     let pat = "{1 0 1 1 0 0 0 1 0 1 [1 0]/2 0 ~ ~ ~}%8"
-    harmor $ gtfo $ (|*| velocity "0.7") $
-            whenmod 16 8 (|+| note "-12") $
+    harmor $ gtfo $ mod $ (|*| velocity "0.7") $
+            whenmod 16 0 (|+| note "-12") $
             velocity (pat) # note "[4]"
             # unit "cycle"
             # phase (scale 0 1 $ shift' 101 rand)
@@ -18,18 +18,17 @@ do
             # x (scale 0 1 $ shift' 105 rand)
             # y (scale 0 1 $ shift' 106 rand)
             # z (scale 0 1 $ shift' 300 rand)
-            # tremdepth (scale 0 1 $ shift' 107 rand)
-            # tremspeed (scale 0 1 $ shift' 108 rand)
-    rytm $ stack [
+    rytm $ mod $ stack [
             velocity (inv <$> pat) # midinote "0",
-            velocity (inv <$> pat) # midinote "8",
-            velocity (pat) # midinote "3",
-            gtfo $ midinote "~ 1" ]
-    harmor2 $ gtfo $ degradeBy 0.2 $
+            gtfo $ velocity (inv <$> pat) # midinote "8",
+            gtfo $ velocity (pat) # midinote "3",
+            gtfo $ midinote "~ 1",
+            gtfo $ degradeBy 0.5 $ shift' 71 $ midinote "[~ 6]*4 ~" # velocity "0.8"]
+    harmor2 $ gtfo $ mod $ degradeBy 0.2 $
         shift' 303 $
         rarely (|+| note "12") $
         slow 2 $ 
-        note "[0,-1]"
+        note "[0,11]"
         # imgspeed (scale 0.4 0.6 $ shift' 2000 rand)
         # imgtime (scale 0 1 $ shift' 2001 rand)
         # imgfreqscale (scale 0.25 0.75 $ shift' 2002 rand)

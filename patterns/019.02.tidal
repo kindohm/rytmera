@@ -1,0 +1,23 @@
+bps (280/120) 
+
+do
+    let mod p = id $ p
+    let dis p = discretise (1/17) $ p
+    let pat = "{1 0 1 1 0 0 1 1 0 0 1 0 0 0 ~ 1 1 1}%8"
+    harmor $ mod $
+        (|*| velocity "0.7") $ velocity pat # note "[0]" 
+        # x (scale 0 1 $ slow 20 tri)
+        # y (scale 0 1 $ slow 21 tri)
+        # z (scale 0 1 $ slow 22 tri)
+        # phase (scale 0.6 1 $ slow 23 tri)
+    rytm $ mod $ stack [
+            velocity (inv <$> pat) # midinote "36",
+            velocity (inv <$> pat) # midinote "3" ]
+    harmor2 $ mod $ 
+              (|*| velocity "0.7") $ velocity (pat) # note "0"
+              # x (scale 0 1 $ slow 19 tri)
+              # y (scale 0 1 $ slow 20 tri)
+              # z (scale 0 1 $ slow 18 tri)
+              # phase (scale 0.55 1 $ slow 17 tri)
+      
+hush

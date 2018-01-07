@@ -1,0 +1,46 @@
+bps (230/120)
+
+do
+    let howoften f = whenmod 40 20 (f)
+    let timemod p = slow (discretise (1/3) $ shift' 100 $ choose [1,1.1..3]) $
+                    spaceOut (map (1/) [1,1.25..4]) $
+                    degradeBy 0.2 $
+                    shift $ p
+    harmor $ gtfo $ 
+        timemod $
+        (|+| note "-3") $
+        (|+| note (shift' 300 $ choose[0,0,12])) $
+        whenmod 16 12 (|=| note "[-3,0]") $
+        whenmod 12 8 (|=| note "[0,2,4]") $
+        whenmod 8 4 (|=| note "[0,2]") $
+        velocity "0.5(3,8)" # note "[0]"
+        # x (scale 0 1 $ shift' 200 rand)
+        # y (scale 0 1 $ shift' 201 rand)
+        # z (scale 0 1 $ shift' 202 rand)
+        # harm (scale 0 1 $ shift' 205 rand)
+        # ab "1" 
+    harmor2 $  
+        timemod $
+        (|+| note "-3") $
+        (|+| note (shift' 300 $ choose[0,0,12,24])) $
+        whenmod 16 12 (|=| note "[-3,0]") $
+        whenmod 12 8 (|=| note "[0,2,4]") $
+        whenmod 8 4 (|=| note "[0,2]") $
+        velocity "0.5(3,8)" # note "[0]"
+        # x (scale 0 1 $ shift' 200 rand)
+        # y (scale 0 1 $ shift' 201 rand)
+        # z (scale 0 1 $ shift' 202 rand)
+        # harm (scale 0 1 $ shift' 205 rand)
+        # ab (shift' 301 $ choose [0,1])
+    rytm $ 
+        timemod $ 
+        stack [
+        whenmod 32 24 (gtfo) $ midinote "1(3,8)",
+        whenmod 16 8 (gtfo) $ midinote "10(3,8)",
+        midinote "2/2"]
+            # perf4 (scale 0.6 1 $ shift' 203 rand) 
+            # perf11 (scale 0.01 0.07 $ slow 20 tri)
+            # perf12 (scale 0.1 0.4 $ slow 21 tri) 
+            
+
+hush

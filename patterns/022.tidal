@@ -1,0 +1,29 @@
+bps (140/120)
+
+do
+    let dis p = discretise (1/4) $ p
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1,1.1..3]) $
+                    spaceOut (map (1/) [1,1.25..3]) $
+                    degradeBy 0.25 $
+                    shift $ p
+    harmor $ (|=| reverbdry "[0.75 0]/40") $ timemod $ note "0*2" 
+        # unit "cycle" 
+        # velocity "0.75"
+        # x (scale 0 0.99 $ slow 30 tri)
+        # y (scale 0 0.95 $ slow 31 tri)
+        # z (scale 0 0.5 $ slow 32 tri)
+        # ab "1"
+        --(shift' 38 $ choose [1,0])
+    harmor2 $ (|=| reverbdry "[0 0.75]/40") $ timemod $ note "0*2" 
+        # unit "cycle" 
+        # velocity "0.75"
+        # x (scale 0 0.99 $ slow 30 tri)
+        # y (scale 0 0.95 $ slow 31 tri)
+        # z (scale 0 0.5 $ slow 32 tri)
+        # ab "1"
+        --(shift' 38 $ choose [1,0])
+    rytm $ (|=| scene "[0 0.01]/40") $ timemod $ stack [
+            midinote "[2 [2 1]/2]",
+            gtfo $ whenmod 4 2 (const $ midinote "8*6") $ midinote "~"]
+
+        hush

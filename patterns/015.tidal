@@ -19,7 +19,7 @@ do
                 (|+| note (discretise (1/4) $ slow 37.1 $ choose [0,-12])) $ (|+| note "8") $ (|=| note "[0,-1]") $ note "0*16"
                 # velocity "0.8"
     rytm $ mod $ 
-        (|=| scene (discretise (1/4) $ shift' 107 $ choose[0,0,0,0,0.02,0.02,0.01])) $ 
+        (|=| scene "[0 0.01 0 0.02]/32") $
         degradeBy (discretise (1/4) $ shift' 108 $ choose[0,0,0,0,0,1]) $
         shift $
         stack [
@@ -33,7 +33,11 @@ do
         slow (discretise (1/8) $ slow 8311 $ choose [1,(4/3),2,(8/3)] ) $ 
             whenmod 32 24 (gtfo) $  (# velocity (scale 0.8 1 $ slow 382 rand)) $ midinote "5*16"]  # nudge "0"
 
-hush    
+
+
+hush   
+
+harmor $ note "0"
 
 
 

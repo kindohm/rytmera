@@ -1,0 +1,20 @@
+bps (300/120)
+
+do    
+    let dis p = discretise (1/10) $ p
+    harmor $ every 10 (within (0, 0.375) (const $ midinote "~")) $
+        (|+| note (dis $ choose[0,12])) $
+        note "{0 2 3 7 8}%8"
+        # x (dis $ scale 0 1 $ slow 20 saw)
+        # y (dis $ scale 0 1 $ slow 21 saw)
+        # z (dis $ scale 0 1 $ slow 22 saw)
+    rytm $ stack [every 10 (within (0, 0.375) (const $ (|+| note (shift' 1000 $ choose [3])) $ midinote "[~ [0]] ~")) $ velocity "0.75*8" # midinote "0"
+        # perf1 (dis $ scale 0 0.1 $ shift' 100 rand)
+        # perf2 (dis $ scale 0 0.2 $ shift' 101 rand)
+        # perf3 (dis $ scale 0 0.2 $ shift' 102 rand)
+        # perf4 (dis $ scale 0 1 $ shift' 103 rand)
+        # perf5 (dis $ scale 0 1 $ shift' 104 rand)
+        # perf6 (dis $ scale 0 1 $ shift' 105 rand) ]
+        
+
+        hush

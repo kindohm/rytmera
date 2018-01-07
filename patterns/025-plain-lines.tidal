@@ -1,0 +1,21 @@
+
+bps (240/120)
+
+
+do
+    stab1 $ (# x (scale 0.4 0.42 $ slow 30 tri)) $ 
+        (# y (scale 0.42 0.43 $ slow 31 tri)) $ 
+        (# z (scale 0.1 0.4 $ slow 32 tri)) $ 
+        (# ab (scale 0.4 0.5 $ slow 33 tri)) $ 
+        (# scene1 (scale 0.4 0.5 $ slow 34 tri)) $ 
+        stut' 13 (0.125) (|*| velocity "0.88") $ 
+        (|+| note "[-3,11]") $ note "{0 ~ ~ ~ [~] ~ ~}%4" 
+        # velocity "1" 
+        # nudge "0.01"
+    rytm $ gtfo' $ stut' 13 (0.125) (|*| velocity "0.84") $ 
+        midinote "{0 ~ ~ ~ [~] ~ ~}%4" # velocity "1"
+
+
+do
+    stab1 silence
+    rytm silence
