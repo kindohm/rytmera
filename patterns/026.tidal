@@ -1,0 +1,68 @@
+
+
+bps (140/120)
+
+hush
+
+do
+    let dis p = discretise (1/8) $ p
+    let dis2 p = discretise (1/4) $ p
+    let mod p = shift $ degradeBy 0.5 $ shift $ fast (choose [4,8,16]) $ p
+    d1 $ stack [ 
+        (0.5 ~>) $ midinote "3*2",
+        mod $ gain 1.2 # midinote (choose [0,0,0,1]),
+        whenmod 30 20 ((0.0625 ~>)) $ whenmod 20 10 ((0.0625 ~>)) $ (0.0625 ~>) $ mod $ gain 1.2 # midinote (choose [10,11])
+            ] 
+        # s "midi" # midichan 0 
+    d2 $ gain 1 # stack [
+            control (dis $ scale 0 127 $ shift' 2 rand) # ctlNum 35
+            , control (dis $ scale 0 127 $ shift' 3 rand) # ctlNum 36
+            , control (dis $ scale 0 127 $ shift' 4 rand) # ctlNum 46
+            , control (dis $ scale 0 127 $ shift' 5 rand) # ctlNum 47
+            ] # s "midi" # midichan 0 # midicmd "control"
+    d3 $ (|+| n "[0 5 7]/12") $ whenmod 30 20 ((0.0625 ~>)) $ whenmod 20 10 ((0.0625 ~>)) $ 
+            (|+| n "0") $
+            mod $ (|+| n "-5") $ gain 1.2 # n "[0,2,4,11]" # s "midi" # midichan 15
+    d4 $ gain 1 # stack [
+        control (dis2 $ scale 0 127 $ shift' 12 rand) # ctlNum 1
+        , control (dis2 $ scale 0 127 $ shift' 13 rand) # ctlNum 2
+        , control (dis2 $ scale 0 127 $ shift' 14 rand) # ctlNum 3
+        , control (dis2 $ scale 0 127 $ shift' 15 rand) # ctlNum 5
+        ] # s "midi" # midichan 15 # midicmd "control"
+    d5 $ sometimesBy 0.1 (# control 90) $ mod $ control 0 # ctlNum 4 # s "midi" # midichan 15 # midicmd "control"
+    d6 $ (|+| note "[0 5 7]/12") $ (|+| note "12") $ (|+| note "-5") $ note "{11 7 4 -1 0}%16" # s "midi" # midichan 14 # gain 1.1
+    d7 $ gain "1.1*16" # control (scale 64 100 $ slow 12.2348932 $ tri) # ctlNum 1 # s "midi" # midichan 14 # midicmd "control"
+
+    hush
+
+bps (100/120)
+
+do
+    let dis p = discretise (1/8) $ p
+    let dis2 p = discretise (1/4) $ p
+    let mod p = shift $ degradeBy 0.5 $ shift $ fast (choose [4,8,16]) $ p
+    let pat = "{1 0 1 0 1 0 0}%16"
+    d1 $ (|*| gain 1.2) $ stack [ 
+        gain pat # midinote "0",
+        gain (pat) # midinote 3,
+        gain "1*16" # midinote 11
+            ] 
+        # s "midi" # midichan 0 
+    d2 $ gain "1*16" # stack [
+        control 40 # ctlNum 35
+        , control (scale 0 127 $ slow 17.1 sine) # ctlNum 36
+        , control (scale 0 127 $ slow 16.1 sine) # ctlNum 46
+        , control (scale 0 127 $ slow 15.1 sine) # ctlNum 47
+        ] # s "midi" # midichan 0 # midicmd "control"
+    d3 $ (|*| gain 1.2) $ (|+| n "[0 5 7]/12") $ 
+            (|+| n "-5") $ gain (inv <$> pat) # n "[0,2,4,11]" # s "midi" # midichan 15
+    d4 $ gain "1*16" # stack [
+        control (scale 0 127 $ slow 30 sine) # ctlNum 1
+        , control (scale 0 127 $ slow 29 sine) # ctlNum 2
+        , control (scale 0 127 $ slow 28 sine) # ctlNum 3
+        , control (scale 0 127 $ slow 27 sine) # ctlNum 5
+        ] # s "midi" # midichan 15 # midicmd "control"
+    d5 $  (# control (scale 0 50 $ slow 20.33 tri)) $ mod $ control 0 # ctlNum 4 # s "midi" # midichan 15 # midicmd "control"            
+
+                hush
+

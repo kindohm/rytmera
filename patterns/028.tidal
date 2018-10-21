@@ -1,0 +1,46 @@
+bps (160/120)
+
+do
+    d1 $ g $ (|+| note "-7") $ slow 4 $ note "{[0 4] 2 -24 ~ [ 4 11] ~ ~ [0] [14 16] ~ 11 ~ ~}%16" # s "midi" # midichan 15 # gain 1.15
+    d2 $ g $ slow 4 $ note "{[0 4] 2 -24 ~ [ 4 11] ~ ~ [0] [14 16] ~ 11 ~ ~}%16" # stack [ 
+        control (scale 0 127 $ slow 35 tri) # ctlNum 1
+        , control 127 # ctlNum 2
+        , control (scale 0 127 $ slow 33 tri) # ctlNum 3
+        , control (scale 70 127 $ slow 30 tri) # ctlNum 4
+        , control (scale 0 127 $ slow 31 tri) # ctlNum 5
+        , control (scale 40 90 $ slow 34 tri) # ctlNum 6
+        , control (scale 80 127 $ slow 32 tri) # ctlNum 7
+        , control 0 # ctlNum 8
+            ] # s "midi" # midichan 15 # midicmd "control"
+
+-- just hats
+d3 $ stack [ 
+     midinote "8*16"] # s "midi"
+
+-- just hats n claps
+d3 $ stack [ 
+    midinote "8*16",
+    midinote "~ ~ ~ [~ 3]" # gain 1.2 # nudge (scale 0 0.01 $ shift' 88 rand)] # s "midi"
+
+-- main start
+d3 $ stack [ 
+    rarely (within (0,0.125) g) $ shift $ gain "[1 ~ ~ 1 ~ 1 ~ ~]*2" 
+        # midinote (discretise (1/2) $ shift' 77 $ choose [0]) # gain 1.1,                
+    midinote "8*16",
+    midinote "~ ~ ~ [~ 3]" # gain 1.2 # nudge (scale 0 0.01 $ shift' 88 rand)] # s "midi"
+
+-- main start 2
+d3 $ stack [ 
+    rarely (within (0,0.125) g) $ shift $ gain "[1 ~ ~ 1 ~ 1 ~ ~]*2" 
+        # midinote (discretise (1/2) $ shift' 77 $ choose [5]) # gain 1.1,                
+    midinote "8*16",
+    midinote "~ ~ ~ [~ 3]" # gain 1.2 # nudge (scale 0 0.01 $ shift' 88 rand)] # s "midi"
+
+-- improv
+d3 $ stack [ 
+    rarely (within (0,0.125) g) $ shift $ gain "[1 ~ ~ 1 ~ 1 ~ ~]*2" 
+        # midinote (discretise (1/2) $ shift' 77 $ choose [0]) # gain 1.1,                
+    g $ midinote "8*16",
+    g $ midinote "~ ~ ~ [~ 3]" # gain 1.2 # nudge (scale 0 0.01 $ shift' 88 rand)] # s "midi"
+        
+    hush

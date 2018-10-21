@@ -1,0 +1,143 @@
+-- test
+
+
+bps (180/120)
+
+let bd1 = "0"
+    ch1 = "8"
+    cp1 = "3"
+    oh1 = "9"
+    bd2 = "1"
+    ch2 = "10"
+    cp2 = "2"
+    oh2 = "11"
+    pat = "{1 0 1 1 0 1 0 1 1 1 0 ~ ~}%8"
+    harda p = (const $ "1") $ p
+    inv 0 = 1
+    inv 1 = 0
+    dis p = discretise (1/6.5) $ p
+
+let harmorControls = gain (pat) # stack [
+                    control (dis $ scale 10 95 $ slow 2 rand) # ctlNum 1
+                    , control (dis $ scale 10 127 $ slow 3 rand) # ctlNum 2
+                    , control (dis $ scale 10 95 $ slow 4 rand) # ctlNum 3
+                    , control (dis $ scale 0 127 $ slow 5 rand) # ctlNum 4
+                    , control (dis $ scale 0 127 $ slow 7 rand) # ctlNum 5
+                    , control (dis $ scale 0 127 $ slow 8 rand) # ctlNum 6
+                    , control 127 # ctlNum 7
+                    ] # s "midi" # midichan 15 # midicmd "control"
+    harmorNotes = gain (pat) # note 0 # s "midi" # midichan 15
+    harmorMute = g $ note 0 # s "midi" # midichan 15
+    rytma1 = stack [
+                gain (inv <$> pat) # midinote bd2,
+                gain (inv <$> pat) # midinote ch2,
+                gain (pat) # midinote cp2,
+                gtfo $ whenmod 10 5 (slow 2) $ density 16 $ midinote oh2] # s "midi" 
+    rytma2 = stack [
+                gain (pat) # midinote bd2,
+                gain (pat) # midinote ch2,
+                gain (inv <$> pat) # midinote cp2,
+                gtfo $ whenmod 10 5 (slow 2) $ density 16 $ midinote oh2] # s "midi" 
+    rytma3 = stack [
+                gain (inv <$> pat) # midinote bd2,
+                gain (inv <$> pat) # midinote ch2,
+                gain (pat) # midinote cp2,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh2] # s "midi" 
+    rytma4 = stack [
+                gain (pat) # midinote bd2,
+                gain (pat) # midinote ch2,
+                gain (inv <$> pat) # midinote cp2,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh2] # s "midi" 
+    rytmb1 = stack [
+                gain (inv <$> pat) # midinote bd1,
+                gain (inv <$> pat) # midinote ch1,
+                gain (pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1] # s "midi" 
+    rytmb2 = stack [
+                gain (pat) # midinote bd1,
+                gain (pat) # midinote ch1,
+                gain (inv <$> pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1] # s "midi" 
+    rytmb3 = stack [
+                gain (pat) # midinote bd1,
+                gain (pat) # midinote ch1,
+                gain (pat) # midinote cp1,
+                whenmod 10 5 (slow 2) $ density 16 $ midinote oh1] # s "midi" 
+
+hush              
+
+let harmor = d1
+    harmorCC = d2
+    rytm = d3
+
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytma1
+
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytma2
+    
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm silence
+    
+do  
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytmb1
+
+do 
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytmb2
+
+do
+    harmor silence
+    harmorCC silence
+    rytm $ rytma2
+
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytma3
+
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytma4
+    
+do
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm silence
+    
+do  
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytmb1
+
+do 
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytmb2
+
+do 
+    harmor $ harmorNotes
+    harmorCC $ harmorControls
+    rytm $ rytmb3
+        
+do
+    harmor silence
+    harmorCC silence
+    rytm $ rytmb1
+
+hush
+

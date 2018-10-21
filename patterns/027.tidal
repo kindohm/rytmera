@@ -1,0 +1,66 @@
+bps (160/120)
+
+hush
+
+let dis p = discretise (1/4) $ p
+let vary' a min max p = (|+| control (dis $ shift' a $ choose[min..max])) $ p
+let vary a p = vary' a (0) 20 $ p
+
+d1 silence
+
+-- drums
+d1 $ degradeBy (discretise (1/1) $ shift' 5 $ choose [0.5,0.55..0.8]) $ shift $
+    fast (shift' 4 $ choose [4,8,16]) $ gain 1.1 # midinote (shift' 3 $ choose [0,0,0,0,3,2]) # s "midi"
+
+-- drums 2
+d1 $ stack [    
+        sometimesBy 0.5 (stut' 1 (0.0625) (# midinote (shift' 7710 $ choose [0,0,3]))) $ shift $ degradeBy 0.2 $ shift $ midinote "0(3,8) ~" # gain 1.1,
+        shift' 3839 $ midinote "~ [3 ~ ~ [8? 2?]/2 ~ ~ ~ ~]" # gain 1.1] # s "midi"
+
+-- synth notes
+d2 $ whenmod 10 5 (0.125 ~>) $ (0.0625 ~>) $ degradeBy (discretise (1/1) $ shift' 5 $ choose [0.5,0.55..0.8]) $ shift $
+    fast (shift' 4 $ choose [4,8,16]) $ (|+| note (discretise (1/8) $ shift' 6665 $ choose [0,12])) $ note "[0,-2]" # gain (shift' 3 $ choose [1.1,1.1,1.1,1.1,0,0]) # s "midi" # midichan 15
+
+-- synth notes 2
+d2 $ degradeBy 0.1 $ shift' 88 $ gain "~ 1.1(3,8)" # note "[0,-2]" # s "midi" # midichan 15 # legato 1 # unit "cycle"
+d2 $ degradeBy 0.1 $ shift' 88 $ fast 2 $  gain "1.1 [~ 1.1] ~ ~" # note "[0,-2]" # s "midi" # midichan 15 # legato 1 # unit "cycle"
+
+
+-- open hi hat
+d5 $ whenmod 24 8 (g) $ midinote "8" # s "midi" # gain 1.1
+
+-- synth CC
+d3 $ gain "1*8" # stack [ 
+    control 0 # ctlNum 100,
+    vary' 500 0 20 $ control 10 # ctlNum 2, -- d
+    vary' 501 100 120 $ control 10 # ctlNum 3, -- s
+    vary' 502 0 100 $ control 10 # ctlNum 4, -- r
+    vary 504 $ control 10 # ctlNum 5, -- pitch a
+    vary 505 $ control 80 # ctlNum 6, -- pitch d
+    vary' 506 0 40 $ control 80 # ctlNum 7, -- pitch s
+    vary 507 $ control 80 # ctlNum 8, -- pitch r
+    vary 508 $ control 10 # ctlNum 9,  -- filter a
+    vary 509 $ control 94 # ctlNum 10, -- filter d
+    vary 510 $ control 144 # ctlNum 11, -- filter s
+    vary 511 $ control 64 # ctlNum 12, -- filter r
+    vary' 512 0 70 $ control 0 # ctlNum 13, -- filter cutoff
+    vary 513 $ control 0 # ctlNum 14, -- filter env
+    vary 514 $ control (scale 0 20 $ slow 19 tri) # ctlNum 15, -- ph width
+    vary 515 $ control 90 # ctlNum 16, -- ph offset
+    vary 516 $ control 80 # ctlNum 17, -- ph w a
+    vary 517 $ control 30 # ctlNum 18, -- ph w d
+    vary 518 $ control 70 # ctlNum 19, -- ph w s
+    vary 519 $ control 40 # ctlNum 20, -- ph w r
+    vary 520 $ control 20 # ctlNum 21, -- ph offset a
+    vary 521 $ control 20 # ctlNum 22, -- ph offset d
+    vary 522 $ control 30 # ctlNum 23, -- ph offset s
+    vary 523 $ control 60 # ctlNum 24,  -- ph offset r
+    control 127 # ctlNum 25    -- unison pitch
+    ] # s "midi" # midicmd "control" # midichan 15
+
+-- rand reverb
+d4 $ sometimesBy 0.05 (# control 80) $ gain "0*16" # control 0 # ctlNum 99 # s "midi" # midicmd "control" # midichan 15
+
+    -- d3 $ control "0*8" # ctlNum 4 # s "midi" # midichan 15 # midicmd "control"
+
+    hush

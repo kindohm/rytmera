@@ -1,0 +1,33 @@
+
+bps (140/120)
+
+let pat = "{1 0 0 1 0 1 0 0 1 1 1 0 0 ~ ~}%16"
+
+let pat = "{1 ~ ~ 1 1 1 ~ ~ ~ ~ 1 1 1 1 ~ ~ ~ ~ ~ ~ 0 ~ ~ ~}%16"
+let pat = "{1 0 0 1 1 1 0 0 0 0 1 1 1 1 ~ ~ ~ ~ ~ ~ 0 ~ ~ ~}%16"
+
+
+do
+    let pat = "{1 0 0 1 1 1 0 0 0 0 1 1 1 1 ~ ~ ~ ~ ~ ~ 0 ~ ~ ~}%16"
+    let mod p = degradeBy 0 $ p
+    d1 $  (|+| note "0") $ (|*| gain "1.1") $ rarely (stut' (shift' 100 $ choose [1,2,3,4]) (0.0625) (|+| note (shift' 101 $ choose [12,-12]))) $ 
+        (|+| note "-9") $
+        gain ( pat) # note "[0,4,11]" # s "midi" # midichan 15
+    d3 $ gain ( pat) # stack [ 
+            control (scale 0 127 $ slow 15 tri) # ctlNum 1
+            , control (scale 0 127 $ slow 16 tri) # ctlNum 2
+            , control (scale 10 100 $ slow 17 tri) # ctlNum 3
+            , control (scale 10 74 $ slow 13 tri) # ctlNum 4
+            , control (scale 0 127 $ slow 19 tri) # ctlNum 5
+            , control (scale 0 127 $ slow 20 tri) # ctlNum 6
+            , control (scale 0 127 $ slow 14 tri) # ctlNum 7
+            , control (scale 0 127 $ slow 21 tri) # ctlNum 8
+            , control (shift' 200 $ choose [0,0,0,0,0,0,0,0,64,100]) # ctlNum 9
+                ] 
+                # s "midi" # midicmd "control" # midichan 15
+    d2 $ stack [
+            g $ rarely ((# midinote 3)) $ (|*| gain "1.1") $ gain (pat) # midinote 33
+            , g $ gain "1*4" # midinote 8
+            , g $ sometimesBy 0.1 ((0.0625*5) ~>) $ shift' 300 $ gain "~ 1.1" # midinote 1 ] # s "midi" 
+
+            hush

@@ -1,0 +1,50 @@
+bps (150/120)
+
+d1 $ (|*| gain 1.1) $ often (stut' (shift' 3983 $ choose [1,1,2]) (0.125) (# midinote "8")) $ 
+        sometimesBy 0.1 (slow 2) $ 
+        shift $ 
+        sometimes (# midinote "[1,2]") $
+        (|+| note "[0 -4 -5 -5]/4") $
+        (|+| note "6")$
+        gain "1 [~ 1] ~ 1 [~ 1] ~ 1 [~ 1]" 
+        # midinote "36" # s "midi"
+
+
+d2 $ (|*| gain 1.1) $
+    sometimesBy 0.1 (slow 2) $ 
+    shift $ 
+    (|+| note "[0 -4 -5 -5]/4") $
+    gain "1(3,8)" 
+    # note "[0,4,11]" # s "midi" # midichan 15
+
+d3 $ sometimesBy 0.1 (slow 2) $shift $ gain ( "1 [~ 1] ~ 1 [~ 1] ~ 1 [~ 1]") # stack [ 
+        control (shift' 200 $ choose [0,0,0,0,0,0,0,0]) # ctlNum 9
+            ] 
+            # s "midi" # midicmd "control" # midichan 15
+
+
+    hush
+
+
+do
+    let dis p = discretise (1/4) $ p
+    let deg p = degradeBy 0.0 $ p
+    let nud p = slow 1 $ (|+| nudge (foldEvery [2,3,4] (1.5 ~>) $ scale 0 2 $ slow 4 sine)) $ p
+    d1 $ stack [deg $ nud $ midinote "[0*32]", degradeBy 0.2 $ shift' 33 $ midinote "~ [[1 ~ ~ 3/2] ~]" ] # s "midi" 
+    d2 $ deg $ nud $ (|+| note "-12") $ gain "1*32" # note "[0,[11 12]/12]" # s "midi" # midichan 15
+    d3 $ deg $ nud $ gain "1*32" # 
+        stack [ 
+            control (dis $ scale 0 127 $ slow 17.881 sine) # ctlNum 1
+            , control (dis $ scale 0 127 $ slow 16.103 sine) # ctlNum 2
+            , control (dis $ scale 5 64 $ slow 18.54 sine) # ctlNum 3
+            , control (dis $ scale 0 50 $ slow 15.21 sine) # ctlNum 4
+            , control (dis $ scale 0 127 $ slow 20.414 sine) # ctlNum 5
+            , control (dis $ scale 0 127 $ slow 17.52345 sine) # ctlNum 6
+            , control (dis $ scale 0 127 $ slow 18.345 sine) # ctlNum 7
+            , control (dis $ scale 0 127 $ slow 19.845 sine) # ctlNum 8
+            , control (dis $ scale 0 127 $ slow 13.1845 sine) # ctlNum 10
+            , control (dis $ scale 0 127 $ slow 20.666 sine) # ctlNum 11
+            , control (scale 1 50 $ slow 14.81845 sine) # ctlNum 9
+            ] # s "midi" # midichan 15 # midicmd "control" 
+
+hush

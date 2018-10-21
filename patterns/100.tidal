@@ -1,0 +1,10 @@
+
+
+do
+    harmor $ note "0*4?"
+        # x (scale 0 1 $ slow 3 tri)
+        # y (scale 0 1 $ slow 4 tri)
+        # z (scale 0 1 $ slow 5 tri)
+    rytm $ midinote "1*2? [0 8*2?]"
+
+    hush
